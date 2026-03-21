@@ -1,0 +1,150 @@
+<html>
+    <head>
+        <title>Registraion Form</title>
+    </head>
+    
+    <style>
+        body {
+            background-color: skyblue;
+            font-family: poppins;
+            display :flex;
+            justify-content: center;
+            align-items: flex-start;
+            margin:2px;
+            border:2px;
+            height:100vh;
+        }
+        .container{
+            background-color: red;
+            padding : 30px;
+            border-radius: 25px;
+            border:6px solid black;
+            width :400px;
+        }
+        h1 {
+            color : yellow;
+            text-align: center;
+            margin-bottom : 30px;
+        }
+        .form-group{
+            display: flex;
+            flex-direction:column;
+            margin-bottom:30px;
+        }
+        label{
+            color:white;
+            margin-bottom:5px;
+        }
+        input,select,textarea {
+            padding:10px;
+            border-radius: 25px;
+            background-color: black;
+            color:white;
+        }
+        /*attribte seletor*/
+             input[type="text"]{
+                border:2px;
+                paddind:20px;
+             }
+
+    </style>
+    <body>
+        
+                
+        
+        <div class="container">
+             <h1>
+            Registraion From
+        </h1>
+        <form action="#" method="post" enctype="multipart/form-data">
+            FULL NAME :
+            <input type="text" name="fullname" placeholder="Enter your Name" required><br><br>
+
+
+
+            <!--password-->
+            PASSWORD :
+            <input type="password" name="password" minlength="8"placeholder="Enter your Password" required><br><br>
+
+
+            <!--Email-->
+            Email :
+            <input type="email" name="email"placeholder="Enter your Email" required><br><br>
+
+
+            Mobile Number :
+            <input type="tel" name="number" pattern="[0-9]{10}" placeholder="Enter your Mobile Number" required><br><br>
+
+            Age :
+             <input type="number" name="age" placeholder="Enter your Age" required><br><br>
+
+            Date of Birth :
+             <input type="date" name="DOB" placeholder="Enter your DOB" required><br><br>
+
+            Favourite Bike :
+            <input type="text" name="bike" placeholder="Favourite Bike" ><br><br>
+            
+            Favourite colour :
+            <input type="color" name="color" placeholder="Favourite colour" ><br><br> 
+
+            Gender :
+            <input type="radio" name="gender" value="male" > Male
+            <input type="radio" name="gender" value="female">  Female
+            <input type="radio" name="gender" value="other" > Other <br><br> 
+
+            Hobbies :
+            <input type="checkbox" name="hobby" value="reading" > Reading
+            <input type="checkbox" name="hobby" value="reading" > Writing
+            <input type="checkbox" name="hobby" value="reading" > Swimming
+            <input type="checkbox" name="hobby" value="reading" > Dancing
+            <input type="checkbox" name="hobby" value="reading" > Singing<br><br>
+            
+            Favourite Auther :
+            <input type="checkbox" name="hobby" value="reading" > William Shakespeare
+            <input type="checkbox" name="hobby" value="reading" > Charles Bukovski
+            <input type="checkbox" name="hobby" value="reading" > Fyodor Dovstoevsky
+            <input type="checkbox" name="hobby" value="reading" > Friedrich Nietzsche
+            <input type="checkbox" name="hobby" value="reading" > Ernest Hemingway <br><br>
+
+            Branch : <!--Dropdown-->
+            <select name="branch">
+                <option value="">Select Branch</option>
+                <option value="">IT</option>
+                <option value="">CSE</option>
+                <option value="">ELPO</option>
+                <option value="">EXTC</option>
+                 <option value="">Mechanical</option>
+            </select>
+            <br><br>
+
+            Favourite Cricketer :  <!--multi-Dropdown-->
+            <select name="players" multiple size="3">
+                <option value="">Select Players</option>
+                <option value="">Sachin Tendulkar</option>
+                <option value="">Virat Kohli</option>
+                <option value="">Rohit Sharma</option>
+                <option value="">MS Dhoni</option>
+                 <option value="">Rahul Dravid</option>
+            </select><br><br>
+
+            <!--File Upload-->
+            Upload Profile Photo : 
+            <input type="file" name="photo" accept="image/*">
+            <br><br>
+
+            <!--Address-->
+            Address : 
+            <textarea rows="5" cols="50" placeholder="Enter your Address"></textarea><br><br>
+
+
+
+            Satisfaction Level : 
+            <input type="range" name="range" min="0" max="10"><br><br> 
+
+            <!--buttons-->
+            <input type="reset" name="submit" width="20px" >
+            <input type="submit" name="submit" width="20px" ><br> <br>
+
+        </form>
+        </div>
+    </body>

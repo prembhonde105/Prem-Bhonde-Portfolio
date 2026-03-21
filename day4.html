@@ -1,0 +1,72 @@
+<html>
+    <head>
+        <title>Selectors</title>
+        <style>
+            body{
+                font-family: Verdana, Geneva, Tahoma, sans-serif;
+                font-size: 20px;
+                font-weight:09px;
+                font-display: block;
+                background-color: aquamarine;
+                text-align: center;
+                background-image: url("dune.jpg");
+            }
+            .highlight {
+                background-color: green;
+                color:blueviolet;
+            }
+            .highlight1 {
+                background-color:bisque;
+                color:brown;    
+            }
+            #mainheading {
+                color : midnightblue;
+                text-align:initial;
+            }
+            /*universal seletor*/
+            * {
+                margin:0;
+                padding: 0;
+                color:rgb(71, 10, 212);
+            }
+             /*group seletor*/
+            h3,h4{
+                color : black;
+            }
+             /*attribte seletor*/
+             input[type="text"]{
+                border:2px;
+                paddind:20px;
+             }
+            /*pseudo-class selector*/
+            a:hover{
+                color:red;
+                
+            } 
+            /*pseodo-element selector*/
+            h3::first-letter{
+                font-size:25px;
+                color:pink;
+            }
+
+
+            
+
+        </style>
+        <body  >
+            <h2 class="highlight" >Quentin Tarantino</h2><br>
+            <h2 id="mainheading">  Martin Scorcesese</h2>
+            <p>
+                <h2 class="highlight1" >David Fincher</h2>
+                <h2 class="highlight">Deni Vellinueve</h2>
+                <h3>David Lynch</h3>
+                <h4>David Lynch</h4>
+                <h2>David Lynch</h2>
+                <h3 >David Lynch</h3>
+                
+            </p>    
+            <h1><a href="12213" >David Fincher</a></h1>
+
+        </body>
+    </head>
+</html>
