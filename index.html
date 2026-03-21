@@ -353,7 +353,7 @@ body:not(.light) .fl img{filter:brightness(0) invert(1)}
       <div class="h-eyebrow rev">Digital FabLab · SSGMCE</div>
       <h1 class="h-name rev d1">Prem<br>Bhonde</h1>
       <p class="h-role rev d2">IT Engineering Student </p>
-      <p class="h-desc rev d3">B.Tech First Year<br>Shri Sant Gajanan Maharaj College of Engineering</p>
+      <p class="h-desc rev d3">B.E. First Year<br>Shri Sant Gajanan Maharaj College of Engineering</p>
       <div class="h-btns rev d4">
         <a href="#about" class="btn-p">Explore <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg></a>
         <a href="#contact" class="btn-o">Contact Me</a>
@@ -368,7 +368,7 @@ body:not(.light) .fl img{filter:brightness(0) invert(1)}
         <div class="hcard-logo"><img src="Fablab_logo_white.png" alt="FabLab" id="hcLogo"/></div>
         <div class="hcard-div"></div>
         <div class="hrow"><span class="hrl">Name</span><span class="hrr">Prem Bhonde</span></div>
-        <div class="hrow"><span class="hrl">Course</span><span class="hrr">B.Tech IT</span></div>
+        <div class="hrow"><span class="hrl">Course</span><span class="hrr">B.E. IT</span></div>
         <div class="hrow"><span class="hrl">Year</span><span class="hrr">First Year</span></div>
         <div class="hrow"><span class="hrl">Lab</span><span class="hrr">FabLab SSGMCE</span></div>
         <div class="hbadge"><div class="hbdot"></div><span class="hbtext">Currently enrolled &amp; active</span></div>
@@ -388,7 +388,7 @@ body:not(.light) .fl img{filter:brightness(0) invert(1)}
     <div class="ac rev d1">
       <div class="act"><h3>Prem Bhonde</h3><p>IT Engineering Student</p></div>
       <div class="acb">
-        <div class="ir"><span class="il">Course</span><span class="iv">B.Tech Information Technology</span></div>
+        <div class="ir"><span class="il">Course</span><span class="iv">B.E. Information Technology</span></div>
         <div class="ir"><span class="il">Year</span><span class="iv">First Year</span></div>
         <div class="ir"><span class="il">College</span><span class="iv">Shri Sant Gajanan Maharaj College of Engineering</span></div>
         <div class="ir"><span class="il">Lab</span><span class="iv">Digital FabLab, SSGMCE</span></div>
@@ -724,5 +724,6 @@ document.querySelectorAll('a[href^="#"]').forEach(a=>{
 });
 
 // Contact form
-document.getElementById('cf').addEventListener('submit',function(e){
-  e.preve
+document.getElementById('cf').addEventListener('submit', function(e){
+  e.preventDefault();
+});
