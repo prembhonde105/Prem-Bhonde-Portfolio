@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>UI/UX Design — FabLab Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --bg:#0d0808;--bg2:#140c0c;--bg3:#1e1010;
+  --surface:#1a0c0c;--surface2:#221212;
+  --border:rgba(255,255,255,0.07);--border-a:rgba(192,57,43,0.4);
+  --text:#fdf0f0;--text2:#cc8080;--text3:#7a3a3a;
+  --a:#c0392b;--a2:#e74c3c;--a3:#f4c542;
+  --glow:rgba(192,57,43,0.38);
+  --nb:#110909;--cb:#1a0c0c;--sa:#140c0c;
+  --sw:72px;--r:16px;--rs:10px;
+  --tr:0.3s cubic-bezier(.4,0,.2,1);
+  --fh:'Syne',sans-serif;--fb:'DM Sans',sans-serif;
+}
+body.light{
+  --bg:#fdf5f5;--bg2:#f7ebeb;--bg3:#eedede;
+  --surface:#fff;--surface2:#faf0f0;
+  --border:rgba(0,0,0,0.07);--border-a:rgba(192,57,43,0.22);
+  --text:#1a0808;--text2:#7a2a2a;--text3:#b06060;
+  --nb:#fff0f0;--cb:#fff;--sa:#f7ebeb;
+  --glow:rgba(192,57,43,0.16);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--fb);background:var(--bg);color:var(--text);line-height:1.7;overflow-x:hidden;transition:background var(--tr),color var(--tr)}
+a{text-decoration:none;color:inherit}
+::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--a);border-radius:2px}
+
+/* SIDEBAR */
+.sidebar{position:fixed;top:0;left:0;height:100vh;width:var(--sw);background:var(--nb);border-right:1px solid var(--border);display:flex;flex-direction:column;align-items:center;padding:1.4rem 0;z-index:900;transition:width var(--tr),background var(--tr);overflow:hidden}
+.sidebar:hover{width:188px}
+.sb-logo{width:38px;height:38px;margin-bottom:1.8rem;flex-shrink:0}
+.sb-logo img{width:38px;height:38px;object-fit:contain;transition:filter var(--tr)}
+body:not(.light) .sb-logo img{filter:brightness(0) invert(1)}
+.sb-nav{list-style:none;width:100%;flex:1;display:flex;flex-direction:column;gap:3px;padding:0 7px}
+.sb-nav a{display:flex;align-items:center;gap:11px;padding:10px 9px;border-radius:var(--rs);color:var(--text3);font-size:.81rem;font-weight:500;white-space:nowrap;overflow:hidden;transition:all var(--tr);position:relative}
+.sb-nav a .ico{width:22px;height:22px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:.95rem}
+.sb-nav a .lbl{opacity:0;transform:translateX(-5px);transition:opacity var(--tr),transform var(--tr)}
+.sidebar:hover .sb-nav a .lbl{opacity:1;transform:none}
+.sb-nav a:hover{color:var(--text);background:var(--surface)}
+.sb-nav a.active{color:var(--a2);background:rgba(192,57,43,0.12)}
+.sb-nav a.active::before{content:'';position:absolute;left:0;top:50%;transform:translateY(-50%);width:3px;height:58%;background:var(--a);border-radius:0 2px 2px 0}
+.sb-bottom{padding:0 7px;width:100%;margin-top:auto}
+.dm-btn{display:flex;align-items:center;gap:11px;padding:10px 9px;border-radius:var(--rs);background:none;border:none;cursor:pointer;color:var(--text3);font-size:.81rem;font-weight:500;width:100%;white-space:nowrap;overflow:hidden;transition:all var(--tr)}
+.dm-btn:hover{color:var(--text);background:var(--surface)}
+.dm-btn .ico{width:22px;height:22px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:.95rem}
+.dm-btn .lbl{opacity:0;transform:translateX(-5px);transition:opacity var(--tr),transform var(--tr)}
+.sidebar:hover .dm-btn .lbl{opacity:1;transform:none}
+
+/* MAIN */
+.main{margin-left:var(--sw)}
+
+/* MODULE HERO */
+.mod-hero{
+  padding:5rem 4.5rem 3.5rem;max-width:1080px;margin:0 auto;
+  position:relative;
+}
+.back-btn{display:inline-flex;align-items:center;gap:.5rem;color:var(--text3);font-size:.82rem;font-weight:500;margin-bottom:1.4rem;transition:color var(--tr)}
+.back-btn:hover{color:var(--a)}
+.mod-title{font-family:var(--fh);font-size:clamp(2.2rem,5vw,3.8rem);font-weight:800;line-height:1.08;margin-bottom:.4rem;background:linear-gradient(135deg,#fff 0%,var(--a2) 55%,var(--a3) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.mod-sub{color:var(--text2);font-size:.92rem;margin-bottom:1.3rem}
+.meta-row{display:flex;gap:.7rem;flex-wrap:wrap}
+.mbadge{display:inline-flex;align-items:center;gap:.4rem;background:var(--surface);border:1px solid var(--border);border-radius:100px;padding:.28rem .9rem;font-size:.72rem;font-weight:500;color:var(--text2)}
+
+/* PROGRESS */
+.prog-wrap{max-width:1080px;margin:0 auto;padding:0 4.5rem 1.5rem}
+.prog-bar{display:flex;gap:.35rem}
+.pb{flex:1;height:5px;border-radius:3px;background:var(--border);position:relative;overflow:hidden}
+.pb.done::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,var(--a),var(--a3));border-radius:3px}
+
+/* DIVIDER */
+.sdiv{max-width:1080px;margin:0 auto;padding:0 4.5rem}
+.sdiv hr{border:none;height:1px;background:var(--border)}
+
+/* DAYS */
+.days{max-width:1080px;margin:0 auto;padding:3rem 4.5rem 5rem}
+.days-hd{margin-bottom:2.5rem}
+.sl{font-size:.68rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--a);margin-bottom:.45rem}
+.st{font-family:var(--fh);font-size:clamp(1.8rem,3vw,2.4rem);font-weight:800;margin-bottom:.7rem;background:linear-gradient(130deg,var(--text) 55%,var(--text2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.sline{width:42px;height:3px;background:linear-gradient(90deg,var(--a),var(--a3));border-radius:2px;margin-bottom:2rem}
+
+/* Day card */
+.day-card{display:grid;grid-template-columns:56px 1fr;gap:0;margin-bottom:1.8rem;position:relative}
+.day-card:not(:last-child) .day-dot-wrap::after{content:'';position:absolute;top:52px;left:50%;transform:translateX(-50%);width:2px;height:calc(100% + 1.8rem);background:linear-gradient(to bottom,var(--border-a),transparent)}
+.day-dot-wrap{display:flex;flex-direction:column;align-items:center;padding-right:1.4rem;position:relative}
+.day-dot{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--a),#8b1a10);display:flex;align-items:center;justify-content:center;font-family:var(--fh);font-weight:800;font-size:.85rem;color:#fff;flex-shrink:0;box-shadow:0 0 18px var(--glow);z-index:1}
+.day-body{background:var(--cb);border:1px solid var(--border);border-radius:var(--r);padding:1.6rem 1.8rem;position:relative;overflow:hidden;transition:all var(--tr)}
+.day-body::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%;background:linear-gradient(to bottom,var(--a),transparent)}
+.day-body:hover{border-color:var(--border-a);transform:translateX(5px);box-shadow:0 8px 28px rgba(0,0,0,.2),-3px 0 18px var(--glow)}
+.dh{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:.9rem;flex-wrap:wrap;gap:.4rem}
+.dtitle{font-family:var(--fh);font-size:1.05rem;font-weight:700}
+.dbadge{background:rgba(192,57,43,.12);border:1px solid var(--border-a);border-radius:100px;padding:.18rem .75rem;font-size:.68rem;font-weight:600;color:var(--a2);white-space:nowrap}
+.ddesc{color:var(--text2);font-size:.9rem;line-height:1.75;margin-bottom:1rem}
+.dtags{display:flex;flex-wrap:wrap;gap:.38rem;margin-bottom:1.1rem}
+.dtag{background:var(--bg3);border:1px solid var(--border);border-radius:6px;padding:.18rem .65rem;font-size:.72rem;color:var(--text3);font-family:monospace}
+.assign-btn{display:inline-flex;align-items:center;gap:.4rem;background:var(--bg3);border:1px solid var(--border-a);border-radius:var(--rs);color:var(--a);font-size:.8rem;font-weight:600;padding:.48rem 1rem;cursor:pointer;transition:all var(--tr);text-decoration:none}
+.assign-btn:hover{background:var(--a);color:#fff;border-color:var(--a);box-shadow:0 0 14px var(--glow)}
+
+/* FOOTER */
+footer{border-top:1px solid var(--border);padding:1.6rem 4.5rem}
+.fi{max-width:1080px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.9rem}
+.fl img{height:22px;opacity:.42;transition:filter var(--tr),opacity var(--tr)}
+body:not(.light) .fl img{filter:brightness(0) invert(1)}
+.fl img:hover{opacity:1}
+.ft{font-size:.76rem;color:var(--text3);text-align:center}.ft strong{color:var(--text2)}
+.flinks{display:flex;gap:.9rem}
+.flinks a{font-size:.76rem;color:var(--text3);transition:color var(--tr)}.flinks a:hover{color:var(--a)}
+
+/* REVEAL */
+.rev{opacity:0;transform:translateY(26px);transition:opacity .6s cubic-bezier(.4,0,.2,1),transform .6s cubic-bezier(.4,0,.2,1)}
+.rev.on{opacity:1;transform:none}
+.d1{transition-delay:.08s}.d2{transition-delay:.15s}.d3{transition-delay:.22s}
+
+/* MOB */
+.mob-btn{display:none;position:fixed;top:.9rem;left:.9rem;z-index:1001;width:40px;height:40px;border-radius:9px;background:var(--nb);border:1px solid var(--border);cursor:pointer;flex-direction:column;align-items:center;justify-content:center;gap:4px}
+.mob-btn span{display:block;width:17px;height:2px;background:var(--text);border-radius:1px}
+.mob-ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:850;opacity:0;transition:opacity var(--tr);pointer-events:none}
+
+@media(max-width:960px){
+  .mod-hero,.prog-wrap,.days,.sdiv{padding-left:2.5rem;padding-right:2.5rem}
+  footer{padding:1.5rem 2.5rem}
+}
+@media(max-width:700px){
+  .mob-btn{display:flex}
+  .sidebar{transform:translateX(-100%);transition:transform var(--tr),width var(--tr),background var(--tr)}
+  .sidebar.open{transform:none;width:192px}
+  .sidebar.open .sb-nav a .lbl,.sidebar.open .dm-btn .lbl{opacity:1;transform:none}
+  .mob-ov{display:block}
+  .main{margin-left:0}
+  .mod-hero,.prog-wrap,.days,.sdiv{padding-left:1.25rem;padding-right:1.25rem}
+  footer{padding:1.4rem 1.25rem}
+  .fi{flex-direction:column;text-align:center}
+  .day-card{grid-template-columns:1fr}
+  .day-dot-wrap{flex-direction:row;padding-right:0;margin-bottom:.7rem}
+  .day-dot-wrap::after{display:none}
+}
+</style>
+</head>
+<body>
+
+<button class="mob-btn" id="mobBtn"><span></span><span></span><span></span></button>
+<div class="mob-ov" id="mobOv"></div>
+
+<!-- SIDEBAR -->
+<aside class="sidebar" id="sb">
+  <div class="sb-logo"><img src="Fablab_logo_white.png" alt="FabLab" id="sbLogo"/></div>
+  <ul class="sb-nav" id="sbNav">
+    <li><a href="index.html#home"><span class="ico">🏠</span><span class="lbl">Home</span></a></li>
+    <li><a href="index.html#about"><span class="ico">👤</span><span class="lbl">About Me</span></a></li>
+    <li><a href="index.html#agreement"><span class="ico">📋</span><span class="lbl">Agreement</span></a></li>
+    <li><a href="index.html#modules" class="active"><span class="ico">📦</span><span class="lbl">Modules</span></a></li>
+    <li><a href="index.html#contact"><span class="ico">✉️</span><span class="lbl">Contact</span></a></li>
+  </ul>
+  <div class="sb-bottom">
+    <button class="dm-btn" id="dmBtn">
+      <span class="ico" id="dmIco">🌙</span>
+      <span class="lbl" id="dmLbl">Dark Mode</span>
+    </button>
+  </div>
+</aside>
+
+<!-- MAIN -->
+<div class="main">
+
+  <!-- MODULE HERO -->
+  <div class="mod-hero rev">
+    <a href="index.html#modules" class="back-btn">← Back to Modules</a>
+    <h1 class="mod-title">🎨 UI / UX Design</h1>
+    <p class="mod-sub">2-Project Assignment Series · Digital FabLab SSGMCE</p>
+    <div class="meta-row">
+      <span class="mbadge">📅 2 Projects</span>
+      <span class="mbadge">🖌️ Figma · Design Thinking · Prototyping</span>
+      <span class="mbadge">🎯 Prem Bhonde</span>
+    </div>
+  </div>
+
+  <div class="sdiv"><hr/></div>
+
+  <!-- PROGRESS -->
+  <div class="prog-wrap" style="padding-top:1.5rem">
+    <p style="font-size:.68rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--a);margin-bottom:.6rem">Assignment Progress</p>
+    <div class="prog-bar">
+      <div class="pb done" title="Redbull"></div>
+      <div class="pb done" title="Final Project"></div>
+    </div>
+  </div>
+
+  <!-- PROJECTS -->
+  <div class="days">
+    <div class="days-hd">
+      <p class="sl rev">Timeline</p>
+      <h2 class="st rev d1">Assignment Projects</h2>
+      <div class="sline rev d2"></div>
+    </div>
+
+    <!-- Project 1 — Redbull -->
+    <div class="day-card rev">
+      <div class="day-dot-wrap"><div class="day-dot">01</div></div>
+      <div class="day-body">
+        <div class="dh"><h3 class="dtitle">Redbull</h3><span class="dbadge">Brand Redesign</span></div>
+        <p class="ddesc">Redesigned the Redbull app experience with a focus on bold visual identity and high-energy aesthetics. Conducted competitor analysis, built user personas, and crafted a seamless flow for product browsing and purchasing. Applied dark-mode-first design with dynamic motion cues to reflect the brand's energetic personality.</p>
+        <div class="dtags"><span class="dtag">Figma</span><span class="dtag">User Research</span><span class="dtag">Wireframing</span><span class="dtag">Prototyping</span><span class="dtag">Brand Identity</span><span class="dtag">Dark UI</span></div>
+        <a href="redbull.html" class="assign-btn">📎 View Assignment</a>
+      </div>
+    </div>
+
+    <!-- Project 2 — Final Project -->
+    <div class="day-card rev d1">
+      <div class="day-dot-wrap"><div class="day-dot">02</div></div>
+      <div class="day-body">
+        <div class="dh"><h3 class="dtitle">Final Project</h3><span class="dbadge">Capstone ⭐</span></div>
+        <p class="ddesc">A comprehensive end-to-end UX project combining all module learnings — from discovery and ideation to high-fidelity prototyping and usability testing. Delivered a complete design system with components, style guide, and interactive prototype. Presented user flows, accessibility considerations, and final design rationale.</p>
+        <div class="dtags"><span class="dtag">Design System</span><span class="dtag">Usability Testing</span><span class="dtag">High-Fidelity UI</span><span class="dtag">Accessibility</span><span class="dtag">Component Library</span><span class="dtag">Presentation</span></div>
+        <a href="final-project.html" class="assign-btn">📎 View Assignment</a>
+      </div>
+    </div>
+
+  </div><!-- /days -->
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="fi">
+      <div class="fl"><img src="Fablab_logo_white.png" alt="FabLab" id="fLogo"/></div>
+      <div class="ft"><strong>Prem Bhonde</strong><br/>© 2026 All Rights Reserved</div>
+      <div class="flinks">
+        <a href="index.html#modules">← All Modules</a>
+        <a href="index.html">Home</a>
+      </div>
+    </div>
+  </footer>
+
+</div><!-- /main -->
+
+<script>
+const dmBtn=document.getElementById('dmBtn'),dmIco=document.getElementById('dmIco'),dmLbl=document.getElementById('dmLbl');
+function logos(l){const w='Fablab_logo_white.png',b='Fablab_logo_black.png',s=l?b:w;['sbLogo','fLogo'].forEach(id=>{const el=document.getElementById(id);if(el)el.src=s})}
+function applyTheme(l){document.body.classList.toggle('light',l);dmIco.textContent=l?'☀️':'🌙';dmLbl.textContent=l?'Light Mode':'Dark Mode';logos(l)}
+dmBtn.addEventListener('click',()=>{const l=!document.body.classList.contains('light');localStorage.setItem('t',l?'l':'d');applyTheme(l)});
+applyTheme(localStorage.getItem('t')==='l');
+
+const mobBtn=document.getElementById('mobBtn'),sb=document.getElementById('sb'),mobOv=document.getElementById('mobOv');
+function openSb(){sb.classList.add('open');mobOv.style.opacity='1';mobOv.style.pointerEvents='auto'}
+function closeSb(){sb.classList.remove('open');mobOv.style.opacity='0';mobOv.style.pointerEvents='none'}
+mobBtn.addEventListener('click',()=>sb.classList.contains('open')?closeSb():openSb());
+mobOv.addEventListener('click',closeSb);
+
+const ro=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('on')})},{threshold:.1,rootMargin:'0px 0px -30px 0px'});
+document.querySelectorAll('.rev').forEach(el=>ro.observe(el));
+</script>
+</body>
+</html>
