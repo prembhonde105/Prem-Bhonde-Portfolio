@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Java Programming Module — FabLab Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    :root{
+      --bg:#0d0808;--bg2:#140c0c;--bg3:#1e1010;
+      --surface:#1a0c0c;--surface2:#221212;
+      --border:rgba(255,255,255,0.07);--border-a:rgba(192,57,43,0.4);
+      --text:#fdf0f0;--text2:#cc8080;--text3:#7a3a3a;
+      --a:#c0392b;--a2:#e74c3c;--a3:#f4c542;--a4:#e88c3a;
+      --glow:rgba(192,57,43,0.38);--glow3:rgba(244,197,66,0.28);
+      --nb:#110909;--cb:#1a0c0c;--sa:#140c0c;
+      --r:16px;--rs:10px;
+      --tr:0.3s cubic-bezier(.4,0,.2,1);
+      --fh:'Syne',sans-serif;--fb:'DM Sans',sans-serif;
+    }
+    body.light{
+      --bg:#fdf5f5;--bg2:#f7ebeb;--bg3:#eedede;
+      --surface:#fff;--surface2:#faf0f0;
+      --border:rgba(0,0,0,0.07);--border-a:rgba(192,57,43,0.22);
+      --text:#1a0808;--text2:#7a2a2a;--text3:#b06060;
+      --nb:#fff0f0;--cb:#fff;--sa:#f7ebeb;
+      --glow:rgba(192,57,43,0.16);--glow3:rgba(244,197,66,0.16);
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{font-family:var(--fb);background:var(--bg);color:var(--text);line-height:1.7;overflow-x:hidden;transition:background var(--tr),color var(--tr)}
+    a{text-decoration:none;color:inherit}
+    ::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--a);border-radius:2px}
+
+    .container{max-width:1080px;margin:0 auto;padding:0 4.5rem}
+
+    /* ===== NAVBAR ===== */
+    #navbar{
+      position:fixed;top:0;left:0;right:0;z-index:900;
+      display:flex;align-items:center;justify-content:space-between;
+      padding:1rem 4.5rem;background:var(--nb);border-bottom:1px solid var(--border);
+      transition:background var(--tr);
+    }
+    .nav-logo img{height:32px;transition:filter var(--tr)}
+    body:not(.light) .nav-logo img{filter:brightness(0) invert(1)}
+    .nav-links{list-style:none;display:flex;gap:2rem}
+    .nav-links a{font-size:.83rem;font-weight:500;color:var(--text3);transition:color var(--tr);position:relative}
+    .nav-links a:hover{color:var(--text)}
+    .nav-links a.active{color:var(--a2)}
+    .nav-actions{display:flex;align-items:center;gap:.75rem}
+    #darkModeToggle{
+      background:none;border:1px solid var(--border);border-radius:100px;
+      width:36px;height:36px;cursor:pointer;font-size:.95rem;color:var(--text);
+      transition:all var(--tr);
+    }
+    #darkModeToggle:hover{border-color:var(--a);background:var(--surface)}
+    .hamburger{display:none;flex-direction:column;gap:4px;background:none;border:none;cursor:pointer}
+    .hamburger span{display:block;width:20px;height:2px;background:var(--text);border-radius:1px}
+    @media(max-width:760px){
+      #navbar{padding:1rem 1.25rem}
+      .nav-links{display:none}
+      .hamburger{display:flex}
+    }
+
+    /* ===== SECTION HEADERS / REVEAL (matches index.html .sl/.st/.sline/.rev) ===== */
+    .section-label{font-size:.68rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--a);margin-bottom:.45rem}
+    .section-title{font-family:var(--fh);font-size:clamp(1.8rem,3.5vw,2.7rem);font-weight:800;line-height:1.12;margin-bottom:.7rem;background:linear-gradient(130deg,var(--text) 55%,var(--text2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+    .section-line{width:42px;height:3px;background:linear-gradient(90deg,var(--a),var(--a3));border-radius:2px}
+    .reveal{opacity:0;transform:translateY(16px);transition:opacity .6s cubic-bezier(.4,0,.2,1),transform .6s cubic-bezier(.4,0,.2,1)}
+    .reveal.on{opacity:1;transform:none}
+    .reveal-delay-1{transition-delay:.08s}
+    .reveal-delay-2{transition-delay:.15s}
+    .reveal-delay-3{transition-delay:.23s}
+
+    /* ===== MODULE HERO ===== */
+    .module-page-hero {
+      padding: 130px 4.5rem 60px;
+      background: var(--sa);
+      border-bottom: 1px solid var(--border);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .module-page-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 60% 80% at 0% 50%, rgba(192,57,43,0.14) 0%, transparent 70%),
+        radial-gradient(ellipse 50% 60% at 100% 50%, rgba(244,197,66,0.08) 0%, transparent 70%);
+    }
+
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--text2);
+      font-size: 0.85rem;
+      font-weight: 500;
+      margin-bottom: 1.5rem;
+      transition: color var(--tr);
+      position: relative;
+    }
+
+    .back-btn:hover { color: var(--a); }
+
+    .module-page-title {
+      font-family: var(--fh);
+      font-size: clamp(2.5rem, 6vw, 4rem);
+      font-weight: 800;
+      background: linear-gradient(135deg, #fff 0%, var(--a2) 52%, var(--a3) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 0.5rem;
+      position: relative;
+    }
+
+    .module-page-sub {
+      color: var(--text2);
+      font-size: 1rem;
+      position: relative;
+    }
+
+    .module-page-meta {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      margin-top: 1.5rem;
+      flex-wrap: wrap;
+      position: relative;
+    }
+
+    .meta-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--surface);
+      border: 1px solid var(--border-a);
+      border-radius: 100px;
+      padding: 0.35rem 1rem;
+      font-size: 0.78rem;
+      font-weight: 500;
+      color: var(--text2);
+    }
+
+    /* ===== DAY TIMELINE ===== */
+    .days-container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 5rem 2rem;
+    }
+
+    .days-header {
+      margin-bottom: 3rem;
+    }
+
+    .day-card {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 0;
+      margin-bottom: 2rem;
+      position: relative;
+    }
+
+    /* Vertical timeline line */
+    .day-card:not(:last-child) .day-indicator::after {
+      content: '';
+      position: absolute;
+      top: 48px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 2px;
+      height: calc(100% + 2rem);
+      background: linear-gradient(to bottom, var(--border-a), transparent);
+    }
+
+    .day-indicator {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-right: 1.5rem;
+      position: relative;
+    }
+
+    .day-dot {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--a), #8b1a10);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--fh);
+      font-weight: 800;
+      font-size: 0.9rem;
+      color: white;
+      flex-shrink: 0;
+      box-shadow: 0 0 20px var(--glow);
+      z-index: 1;
+    }
+
+    .day-body {
+      background: var(--cb);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      padding: 1.8rem 2rem;
+      transition: all var(--tr);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .day-body::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 3px;
+      height: 100%;
+      background: linear-gradient(to bottom, var(--a), transparent);
+    }
+
+    .day-body:hover {
+      border-color: var(--border-a);
+      transform: translateX(6px);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2), -4px 0 20px var(--glow);
+    }
+
+    .day-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .day-title {
+      font-family: var(--fh);
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .day-badge {
+      background: rgba(192,57,43,0.12);
+      border: 1px solid var(--border-a);
+      border-radius: 100px;
+      padding: 0.2rem 0.8rem;
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--a2);
+      white-space: nowrap;
+    }
+
+    .day-desc {
+      color: var(--text2);
+      font-size: 0.93rem;
+      line-height: 1.75;
+      margin-bottom: 1.2rem;
+    }
+
+    .day-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-bottom: 1.2rem;
+    }
+
+    .day-tag {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: var(--rs);
+      padding: 0.2rem 0.7rem;
+      font-size: 0.75rem;
+      color: var(--text3);
+    }
+
+    .view-assignment-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--surface2);
+      border: 1px solid var(--border-a);
+      border-radius: var(--rs);
+      color: var(--a2);
+      font-size: 0.82rem;
+      font-weight: 600;
+      padding: 0.5rem 1.1rem;
+      cursor: pointer;
+      transition: all var(--tr);
+      text-decoration: none;
+    }
+
+    .view-assignment-btn:hover {
+      background: var(--a);
+      color: white;
+      border-color: var(--a);
+      box-shadow: 0 0 15px var(--glow);
+    }
+
+    /* ===== MODULE OVERVIEW STRIP ===== */
+    .progress-strip {
+      display: flex;
+      gap: 0.4rem;
+      margin-bottom: 3rem;
+      flex-wrap: wrap;
+    }
+
+    .progress-day {
+      flex: 1;
+      min-width: 60px;
+      height: 6px;
+      border-radius: 3px;
+      background: var(--border);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .progress-day.done::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, var(--a), var(--a3));
+      border-radius: 3px;
+    }
+
+    /* ===== FOOTER ===== */
+    footer{border-top:1px solid var(--border);padding:1.6rem 4.5rem}
+    .footer-inner{max-width:1080px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.9rem}
+    .footer-logo img{height:22px;transition:filter var(--tr),opacity var(--tr);opacity:.42}
+    body:not(.light) .footer-logo img{filter:brightness(0) invert(1)}
+    .footer-logo img:hover{opacity:1}
+    .footer-text{font-size:.76rem;color:var(--text3);text-align:center}
+    .footer-text strong{color:var(--text2)}
+    .footer-links{display:flex;gap:.9rem}
+    .footer-links a{font-size:.76rem;color:var(--text3);transition:color var(--tr)}
+    .footer-links a:hover{color:var(--a)}
+
+    @media (max-width: 700px) {
+      .module-page-hero{padding:110px 1.25rem 50px}
+      .container{padding:0 1.25rem}
+      footer{padding:1.4rem 1.25rem}
+      .footer-inner{flex-direction:column;text-align:center}
+    }
+
+    @media (max-width: 600px) {
+      .day-card { grid-template-columns: 1fr; }
+      .day-indicator { flex-direction: row; padding-right: 0; margin-bottom: 0.8rem; }
+      .day-dot { width: 36px; height: 36px; font-size: 0.78rem; }
+      .day-indicator::after { display: none; }
+      .days-container { padding: 3rem 1.25rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== NAVBAR ===== -->
+  <nav id="navbar">
+    <div class="nav-logo">
+      <a href="index.html"><img src="Fablab_logo_white.png" alt="FabLab Logo" id="navLogo" /></a>
+    </div>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html#home">Home</a></li>
+      <li><a href="index.html#about">About</a></li>
+      <li><a href="index.html#agreement">Agreement</a></li>
+      <li><a href="index.html#modules" class="active">Modules</a></li>
+      <li><a href="index.html#contact">Contact</a></li>
+    </ul>
+    <div class="nav-actions">
+      <button id="darkModeToggle" title="Toggle dark mode">🌙</button>
+      <button class="hamburger" id="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ===== MODULE HERO ===== -->
+  <div class="module-page-hero">
+    <div class="container">
+      <a href="index.html#modules" class="back-btn">
+        ← Back to Modules
+      </a>
+      <h1 class="module-page-title">☕ Java Programming</h1>
+      <p class="module-page-sub">7-Day Assignment Series · Digital FabLab SSGMCE</p>
+      <div class="module-page-meta">
+        <span class="meta-badge">📅 7 Days</span>
+        <span class="meta-badge">☕ Java</span>
+        <span class="meta-badge">🎯 Prem Bhonde</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== DAYS CONTENT ===== -->
+  <div class="days-container">
+
+    <div class="days-header">
+      <p class="section-label reveal">Progress Tracker</p>
+      <h2 class="section-title reveal reveal-delay-1">Assignment Timeline</h2>
+      <div class="section-line reveal reveal-delay-2"></div>
+      <div class="progress-strip reveal reveal-delay-3">
+        <div class="progress-day done" title="Day 1 — Done"></div>
+        <div class="progress-day done" title="Day 2 — Done"></div>
+        <div class="progress-day done" title="Day 3 — Done"></div>
+        <div class="progress-day done" title="Day 4 — Done"></div>
+        <div class="progress-day done" title="Day 5 — Done"></div>
+        <div class="progress-day done" title="Day 6 — Done"></div>
+        <div class="progress-day done" title="Day 7 — Done"></div>
+      </div>
+    </div>
+
+    <!-- Day 1 -->
+    <div class="day-card reveal">
+      <div class="day-indicator">
+        <div class="day-dot">01</div>
+      </div>
+      <div class="day-body">
+        <div class="day-header">
+          <h3 class="day-title">Introduction &amp; Java Basics</h3>
+          <span class="day-badge">Foundation</span>
+        </div>
+        <p class="day-desc">
+          Introduction to Java and its key features. Explored JDK, JRE, and JVM and how they work together. Learned Java program structure, the main() method, and basic syntax. Practiced compiling and executing simple Java programs.
+        </p>
+        <div class="day-tags">
+          <span class="day-tag">Java Introduction</span>
+          <span class="day-tag">JDK</span>
+          <span class="day-tag">JRE</span>
+          <span class="day-tag">JVM</span>
+          <span class="day-tag">main()</span>
+          <span class="day-tag">Syntax</span>
+          <span class="day-tag">Compilation</span>
+        </div>
+        <!-- EDIT LINK: replace with your Day 1 file -->
+        <a href="java-day1.html" class="view-assignment-btn">
+          📎 View Assignment
+        </a>
+      </div>
+    </div>
+
+    <!-- Day 2 -->
+    <div class="day-card reveal reveal-delay-1">
+      <div class="day-indicator">
+        <div class="day-dot">02</div>
+      </div>
+      <div class="day-body">
+        <div class="day-header">
+          <h3 class="day-title">Variables, Data Types, Input &amp; Operators</h3>
+          <span class="day-badge">Basics &amp; Operations</span>
+        </div>
+        <p class="day-desc">
+          Learned variables and primitive data types along with type casting. Practiced taking user input using Scanner. Explored arithmetic, relational, logical, and assignment operators. Built a strong foundation in Java expressions.
+        </p>
+        <div class="day-tags">
+          <span class="day-tag">Variables</span>
+          <span class="day-tag">int</span>
+          <span class="day-tag">float</span>
+          <span class="day-tag">double</span>
+          <span class="day-tag">char</span>
+          <span class="day-tag">boolean</span>
+          <span class="day-tag">Scanner</span>
+          <span class="day-tag">Operators</span>
+          <span class="day-tag">Type Casting</span>
+        </div>
+        <!-- EDIT LINK: replace with your Day 2 file -->
+        <a href="java-day2.html" class="view-assignment-btn">
+          📎 View Assignment
+        </a>
+      </div>
+    </div>
+
+    <!-- Day 3 -->
+    <div class="day-card reveal reveal-delay-2">
+      <div class="day-indicator">
+        <div class="day-dot">03</div>
+      </div>
+      <div class="day-body">
+        <div class="day-header">
+          <h3 class="day-title">Methods &amp; Arrays</h3>
+          <span class="day-badge">Methods &amp; Arrays</span>
+        </div>
+        <p class="day-desc">
+          Learned method declaration, parameters, return values, and calling methods. Explored one-dimensional arrays and array traversal. Practiced basic array programs. Built reusable and organized code blocks.
+        </p>
+        <div class="day-tags">
+          <span class="day-tag">Methods</span>
+          <span class="day-tag">Parameters</span>
+          <span class="day-tag">return</span>
+          <span class="day-tag">Arrays</span>
+          <span class="day-tag">for loop</span>
+          <span class="day-tag">Array Traversal</span>
+        </div>
+        <!-- EDIT LINK: replace with your Day 3 file -->
+        <a href="java-day3.html" class="view-assignment-btn">
+          📎 View Assignment
+        </a>
+      </div>
+    </div>
+
+    <!-- Day 4 -->
+    <div class="day-card reveal">
+      <div class="day-indicator">
+        <div class="day-dot">04</div>
+      </div>
+      <div class="day-body">
+        <div class="day-header">
+          <h3 class="day-title">Control Statements &amp; Loops</h3>
+          <span class="day-badge">Control Flow</span>
+        </div>
+        <p class="day-desc">
+          Explored if, if-else, and nested if statements along with switch. Practiced for, while, and do-while loops. Learned how to use break and continue. Strengthened control over program logic and flow.
+        </p>
+        <div class="day-tags">
+          <span class="day-tag">if</span>
+          <span class="day-tag">if-else</span>
+          <span class="day-tag">switch</span>
+          <span class="day-tag">for</span>
+          <span class="day-tag">while</span>
+          <span class="day-tag">do-while</span>
+          <span class="day-tag">break</span>
+          <span class="day-tag">continue</span>
+        </div>
+        <!-- EDIT LINK: replace with your Day 4 file -->
+        <a href="java-day4.html" class="view-assignment-btn">
+          📎 View Assignment
+        </a>
+      </div>
+    </div>
+
+    <!-- Day 5 -->
+    <div class="day-card reveal reveal-delay-1">
+      <div class="day-indicator">
+        <div class="day-dot">05</div>
+      </div>
+      <div class="day-body">
+        <div class="day-header">
+          <h3 class="day-title">Object-Oriented Programming</h3>
+          <span class="day-badge">OOP</span>
+        </div>
+        <p class="day-desc">
+          Introduced classes, objects, attributes, and methods. Learned constructors and how encapsulation protects data. Explored access modifiers and the this keyword. Built the foundation for object-oriented thinking in Java.
+        </p>
+        <div class="day-tags">
+          <span class="day-tag">Class</span>
+          <span class="day-tag">Object</span>
+          <span class="day-tag">Constructor</span>
+          <span class="day-tag">Encapsulation</span>
+          <span class="day-tag">private</span>
+          <span class="day-tag">public</span>
+          <span class="day-tag">this</span>
+        </div>
+        <!-- EDIT LINK: replace with your Day 5 file -->
+        <a href="java-day5.html" class="view-assignment-btn">
+          📎 View Assignment
+        </a>
+      </div>
+    </div>
+
+    <!-- Day 6 -->
+    <div class="day-card reveal reveal-delay-2">
+      <div class="day-indicator">
+        <div class="day-dot">06</div>
+      </div>
+      <div class="day-body">
+        <div class="day-header">
+          <h3 class="day-title">Inheritance, Polymorphism &amp; Abstraction</h3>
+          <span class="day-badge">Advanced OOP</span>
+        </div>
+        <p class="day-desc">
+          Explored inheritance and its types in Java using extends. Learned method overriding and overloading for polymorphism. Introduced abstraction and interfaces. Deepened understanding of object-oriented design principles.
+        </p>
+        <div class="day-tags">
+          <span class="day-tag">Inheritance</span>
+          <span class="day-tag">extends</span>
+          <span class="day-tag">Overriding</span>
+          <span class="day-tag">Overloading</span>
+          <span class="day-tag">Polymorphism</span>
+          <span class="day-tag">Abstraction</span>
+          <span class="day-tag">Interface</span>
+        </div>
+        <!-- EDIT LINK: replace with your Day 6 file -->
+        <a href="java-day6.html" class="view-assignment-btn">
+          📎 View Assignment
+        </a>
+      </div>
+    </div>
+
+    <!-- Day 7 -->
+    <div class="day-card reveal">
+      <div class="day-indicator">
+        <div class="day-dot">07</div>
+      </div>
+      <div class="day-body">
+        <div class="day-header">
+          <h3 class="day-title">Exception Handling &amp; Collections</h3>
+          <span class="day-badge">Java Essentials</span>
+        </div>
+        <p class="day-desc">
+          Learned the difference between errors and exceptions. Practiced try-catch, finally, throw, and throws. Introduced ArrayList and HashMap. Explored basic collection operations for storing and managing data.
+        </p>
+        <div class="day-tags">
+          <span class="day-tag">Exception</span>
+          <span class="day-tag">try</span>
+          <span class="day-tag">catch</span>
+          <span class="day-tag">finally</span>
+          <span class="day-tag">throw</span>
+          <span class="day-tag">throws</span>
+          <span class="day-tag">ArrayList</span>
+          <span class="day-tag">HashMap</span>
+        </div>
+        <!-- EDIT LINK: replace with your Day 7 file -->
+        <a href="java-day7.html" class="view-assignment-btn">
+          📎 View Assignment
+        </a>
+      </div>
+    </div>
+
+    <!-- Final Project -->
+    <div class="day-card reveal reveal-delay-1">
+      <div class="day-indicator">
+        <div class="day-dot">⭐</div>
+      </div>
+      <div class="day-body">
+        <div class="day-header">
+          <h3 class="day-title">☕ Java Final Project</h3>
+          <span class="day-badge">Final Project ⭐</span>
+        </div>
+        <p class="day-desc">
+          Build a complete Java-based application that combines the concepts learned throughout the seven-day Java module. Use variables, input, operators, methods, arrays, control statements, classes, objects, constructors, OOP concepts, exception handling, and collections.
+        </p>
+        <p class="day-desc">
+          <strong>Suggested Project:</strong> Student Management System
+        </p>
+        <div class="day-tags">
+          <span class="day-tag">Java</span>
+          <span class="day-tag">Scanner</span>
+          <span class="day-tag">Methods</span>
+          <span class="day-tag">Arrays</span>
+          <span class="day-tag">Classes &amp; Objects</span>
+          <span class="day-tag">OOP</span>
+          <span class="day-tag">Exception Handling</span>
+          <span class="day-tag">ArrayList</span>
+          <span class="day-tag">CRUD Operations</span>
+        </div>
+        <!-- EDIT LINK: replace with your Final Project file -->
+        <a href="java-final-project.html" class="view-assignment-btn">
+          📎 View Project
+        </a>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ===== FOOTER ===== -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-logo">
+        <img src="Fablab_logo_white.png" alt="FabLab" />
+      </div>
+      <div class="footer-text">
+        <strong>Prem Bhonde</strong><br>
+        © 2026 All Rights Reserved
+      </div>
+      <div class="footer-links">
+        <a href="https://github.com/prembhonde105" target="_blank">GitHub</a>
+        <a href="www.linkedin.com/in/prem-bhonde-a31526381" target="_blank">LinkedIn</a>
+        <a href="index.html#modules">← All Modules</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Dark mode toggle — mirrors index.html's theme system (body.light + red/gold palette)
+    const dmBtn = document.getElementById('darkModeToggle');
+    const navLogo = document.getElementById('navLogo');
+    const footerLogo = document.querySelector('.footer-logo img');
+
+    function logos(light){
+      const src = light ? 'Fablab_logo_black.png' : 'Fablab_logo_white.png';
+      if (navLogo) navLogo.src = src;
+      if (footerLogo) footerLogo.src = src;
+    }
+    function applyTheme(light){
+      document.body.classList.toggle('light', light);
+      dmBtn.textContent = light ? '☀️' : '🌙';
+      logos(light);
+    }
+    dmBtn.addEventListener('click', () => {
+      const light = !document.body.classList.contains('light');
+      localStorage.setItem('t', light ? 'l' : 'd');
+      applyTheme(light);
+    });
+    applyTheme(localStorage.getItem('t') === 'l');
+
+    // Mobile nav toggle
+    const hamburger = document.getElementById('hamburger');
+    const navLinks = document.getElementById('navLinks');
+    hamburger.addEventListener('click', () => {
+      navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
+    });
+
+    // Scroll reveal (matches index.html behavior)
+    const ro = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('on'); });
+    }, { threshold: 0.05 });
+    document.querySelectorAll('.reveal').forEach(el => ro.observe(el));
+    setTimeout(() => {
+      document.querySelectorAll('.reveal:not(.on)').forEach(el => el.classList.add('on'));
+    }, 400);
+  </script>
+
+</body>
+</html>
