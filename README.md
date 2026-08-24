@@ -3,7 +3,7 @@
 This repository contains my personal portfolio website developed using HTML, CSS, and JavaScript as part of the Digital FabLab program.
 
 Prem Bhonde  
-B.Tech IT (First Year)  
+B.Tech IT (Second Year)  
 Shri Sant Gajanan Maharaj College of Engineering  
 
 Modules
